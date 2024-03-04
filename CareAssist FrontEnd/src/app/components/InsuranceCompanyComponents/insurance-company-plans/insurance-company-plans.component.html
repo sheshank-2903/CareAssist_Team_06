@@ -1,0 +1,133 @@
+<div class="container" style="margin-top: 2%;">
+  <div class="d-flex" style="margin-bottom: 2%;">
+      <input class="form-control" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="search">
+      <button type="button" class="btn btn-outline-info ml-3" (click)="searchPlanById()">
+        <i class="bi bi-search"></i>
+        Search By Id
+      </button>
+      <button type="button" class="btn btn-outline-info ml-3" (click)="searchPlanByName()">
+        <i class="bi bi-search"></i>
+        Search By Name
+      </button>
+      <button type="button" class="btn btn-outline-info ml-3" (click)="getPlansByCompanyId()">
+        <i class="bi bi-arrow-clockwise"></i>
+      </button>
+      <button type="button" class="btn btn-success ml-3" (click)="toggleAddPlan()">+ Add Plan</button>
+  </div>
+  <table class="table mt-10% table-hover table-bordered text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th>#planId</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Date of Creation</th>
+          <th>Coverage Amount</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let plan of comapnyPlansList">
+          <td>{{plan.planId}}</td>
+          <td>{{plan.planName}}</td>
+          <td>{{plan.description}}</td>
+          <td>{{plan.dateOfIssue}}</td>
+          <td>{{plan.coverageAmount}}</td>
+          <td>
+              <button type="button" class="btn btn-danger" (click)="confirmDelete(plan.planId)">
+                <i class="bi bi-trash3"></i>
+                Delete
+              </button> /
+              <button type="button" class="btn btn-success" (click)="toggleEditPlan(plan.planId)">
+                <i class="bi bi-pencil-square"></i>
+                Edit
+              </button>
+          </td>
+        </tr>
+      </tbody>
+  </table>
+
+
+  
+  <!--Add Plan Modal -->
+  <div id="addPlanFormModel" class="addPlanDisplay">
+    <form  [formGroup]="addPlanForm" (ngSubmit)="SubmitPlan()"  style="width: 60%; margin-left: auto; margin-right: auto;">
+    <div class="form-group">
+      <label for="PlanName">Plan Name:</label>
+      <input type="text" class="form-control" id="PlanName" formControlName="PlanName" 
+        required [ngClass]="{'is-invalid':getPlanForm['PlanName'].errors,'is-valid': !getPlanForm['PlanName'].errors}">
+        <div *ngIf="getPlanForm['PlanName'].errors && !getPlanForm['PlanName'].errors?.['required']" class="invalid-feedback">Plan Name can have only alphabets and length has to be between 3 to 20 letters</div>
+        <div *ngIf="!getPlanForm['PlanName'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!</div>
+        <div *ngIf="getPlanForm['PlanName'].errors?.['required']" style="color: red;">Plan name cannot be empty</div>
+    </div>
+    <div class="form-group">
+      <label for="PlanAmount">Plan Amount:</label>
+      <input type="number" class="form-control" id="PlanAmount" formControlName="PlanAmount" 
+        required [ngClass]="{'is-invalid':getPlanForm['PlanAmount'].errors,'is-valid': !getPlanForm['PlanAmount'].errors}">
+        <div *ngIf="getPlanForm['PlanAmount'].errors && !getPlanForm['PlanAmount'].errors?.['required']" class="invalid-feedback">Plan Amount should be greater then 10000</div>
+        <div *ngIf="!getPlanForm['PlanAmount'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!</div>
+        <div *ngIf="getPlanForm['PlanAmount'].errors?.['required']" style="color: red;">Plan amount cannot be empty</div>
+    </div>
+    <div class="form-group">
+      <label for="address">Description Of Plan: </label>
+      <textarea style="resize: none;" class="form-control"  id="descriptionOfPlan" 
+        formControlName="descriptionOfPlan" required [ngClass]="{'is-invalid':getPlanForm['descriptionOfPlan'].errors,'is-valid': !getPlanForm['descriptionOfPlan'].errors}"></textarea>
+
+        <div *ngIf="!getPlanForm['descriptionOfPlan'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!</div>
+        <div *ngIf="getPlanForm['descriptionOfPlan'].errors?.['required']" style="color: red;">Description Of Plan cannot be empty</div>
+    </div>
+    <button type="submit" [disabled]="addPlanForm.invalid" class="btn btn-primary" style="width: 100%;">Add Plan</button>
+  </form>
+  <button type="button" style="position: absolute; top: 0%; right: 0%;" class="btn btn-danger" (click)="toggleAddPlan()">
+    <i class="bi bi-x-circle"></i>
+  </button>
+  </div>
+
+  <!--Edit Form Modal -->
+  <div id="editPlanFormModel" class="editPlanDisplay">
+    <form  [formGroup]="editPlanForm" (ngSubmit)="SubmitEditedPlan()"  style="width: 60%; margin-left: auto; margin-right: auto;">
+    <div class="form-group">
+      <label for="PlanName">Plan Name:</label>
+      <input type="text" class="form-control" id="PlanName" formControlName="PlanName"
+        required [ngClass]="{'is-invalid':getEditPlanForm['PlanName'].errors,'is-valid': !getEditPlanForm['PlanName'].errors}">
+        <div *ngIf="getEditPlanForm['PlanName'].errors && !getEditPlanForm['PlanName'].errors?.['required']" class="invalid-feedback">Plan Name can have only alphabets and length has to be between 3 to 20 letters</div>
+        <div *ngIf="!getEditPlanForm['PlanName'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!</div>
+        <div *ngIf="getEditPlanForm['PlanName'].errors?.['required']" style="color: red;">Plan name cannot be empty</div>
+    </div>
+    <div class="form-group">
+      <label for="PlanAmount">Plan Amount:</label>
+      <input type="number" class="form-control" id="PlanAmount" formControlName="PlanAmount"
+        required [ngClass]="{'is-invalid':getEditPlanForm['PlanAmount'].errors,'is-valid': !getEditPlanForm['PlanAmount'].errors}">
+        <div *ngIf="getEditPlanForm['PlanAmount'].errors && !getEditPlanForm['PlanAmount'].errors?.['required']" class="invalid-feedback">Plan Amount should be greater then 10000</div>
+        <div *ngIf="!getEditPlanForm['PlanAmount'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!</div>
+        <div *ngIf="getEditPlanForm['PlanAmount'].errors?.['required']" style="color: red;">Plan amount cannot be empty</div>
+    </div>
+    <div class="form-group">
+      <label for="address">Description Of Plan: </label>
+      <textarea style="resize: none;" class="form-control"  id="descriptionOfPlan"
+        formControlName="descriptionOfPlan" required [ngClass]="{'is-invalid':getEditPlanForm['descriptionOfPlan'].errors,'is-valid': !getEditPlanForm['descriptionOfPlan'].errors}"></textarea>
+
+        <div *ngIf="!getEditPlanForm['descriptionOfPlan'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!</div>
+        <div *ngIf="getEditPlanForm['descriptionOfPlan'].errors?.['required']" style="color: red;">Description Of Plan </div>
+    </div>
+    <button type="submit" [disabled]="editPlanForm.invalid" class="btn btn-primary" style="width: 100%;">Update Plan</button>
+  </form>
+  <button type="button" style="position: absolute; top: 0%; right: 0%;" class="btn btn-danger" (click)="toggleEditPlan(1)">
+    <i class="bi bi-x-circle"></i>
+  </button>
+  </div>
+</div >
+
+<!-- Delete Model -->
+<div class="confirm-delete-popup" id="confirmDeleteDisplay">
+  <form #purchaseForm="ngForm" (ngSubmit)="submitConfirmDelete()">
+    <label style="display: block;">Please confirm your purchase by typing "DELETE" below: </label>
+    <input type="text" style="margin: 2%; width: 82%;" name="confirmation" [(ngModel)]="confirmDeleteInput" required>
+    <div>
+      <button type="submit" class="btn btn-success" style="margin-right: 2%; margin-top: 2%; width: 40%;" [disabled]="confirmDeleteInput !== 'DELETE'">Confirm Delete</button>
+      <button type="button" class="btn btn-danger" style="width: 40%; margin-top: 2%;" (click)="closeDeleteModel()">Cancel</button>
+    </div>
+    <button type="button" style="position: absolute; top: 0%; right: 0%;" class="btn btn-danger" (click)="closeDeleteModel()">
+      <i class="bi bi-x-circle"></i>
+    </button>
+  </form>
+</div>

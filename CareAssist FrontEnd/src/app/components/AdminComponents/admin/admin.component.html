@@ -1,0 +1,22 @@
+<nav class="navbar sticky-top navbar-dark bg-dark navbar-toggler" style="width: 100%; min-width:100vh; padding: 1.5%;">
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+        aria-controls="navbarTogglerDemo01" aria-expanded="true" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse" id="navbarTogglerDemo01">
+        <div class="d-flex  flex-column flex-lg-row">
+            <a (click)="openTab('home')" routerLink="/admin/home" id="btn-home" class="nav-link tab active">Home </a>
+            <a (click)="openTab('patient')" routerLink="/admin/patient" id="btn-patient" class="nav-link tab">Patient</a>
+            <a (click)="openTab('healthCareProvider')" routerLink="/admin/healthCareProvider" id="btn-healthCareProvider" class="nav-link tab">Health Care Provider</a>
+            <a (click)="openTab('insuranceCompany')" routerLink="/admin/insuranceCompany" id="btn-insuranceCompany" class="nav-link tab">Insurance Company</a>
+            <a (click)="openTab('plans')" routerLink="/admin/plans" id="btn-plans" class="nav-link tab">Plans</a>
+            <a (click)="openTab('claims')" routerLink="/admin/claims" id="btn-claims" class="nav-link tab">Claims</a>
+            <a (click)="openTab('invoices')" routerLink="/admin/invoices" id="btn-invoices" class="nav-link tab">Invoices</a>
+            <a (click)="openTab('profile')" routerLink="/admin/profile" id="btn-profile" class="nav-link tab">Profile</a>
+            <button class="btn btn-outline-light ml-lg-auto" (click)="logout()"><i class="bi bi-box-arrow-right"></i></button>
+        </div>
+    </div>
+</nav>
+<div>
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,17 @@
+.confirm-purchase-popup {
+    display: none;
+}
+
+.confirm-purchase-popup.active {
+    display: flex;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    width: 40%;
+    border-radius: 5%;
+    padding: 2%;
+    background-color: rgb(222, 221, 221);
+
+
+
+}

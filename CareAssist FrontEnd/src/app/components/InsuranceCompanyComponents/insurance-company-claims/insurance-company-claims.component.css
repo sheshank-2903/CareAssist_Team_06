@@ -1,0 +1,72 @@
+.planDisplay.active {
+    display: flex;
+    position: absolute;
+    background-color: rgb(222, 221, 221);
+    top: 13%;
+    left: 30%;
+    width: 40%;
+    min-width: 300px;
+    margin-left: auto;
+    margin-left: auto;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border-radius: 5%;
+}
+
+.planDisplay {
+    display: none;
+}
+
+
+.patientDisplay.active {
+    display: flex;
+    position: absolute;
+    background-color: rgb(222, 221, 221);
+    top: 13%;
+    left: 30%;
+    width: 40%;
+    min-width: 300px;
+    margin-left: auto;
+    margin-left: auto;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border-radius: 5%;
+}
+
+.patientDisplay {
+    display: none;
+}
+
+.confirm-approve-popup {
+    display: none;
+}
+
+
+.confirm-approve-popup.active {
+    display: flex;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    width: 40%;
+    border-radius: 5%;
+    padding: 2%;
+    background-color: rgb(247, 242, 242);
+
+}
+
+.confirm-reject-popup {
+    display: none;
+}
+
+
+.confirm-reject-popup.active {
+    display: flex;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    width: 40%;
+    border-radius: 5%;
+    padding: 2%;
+    background-color: rgb(247, 242, 242);
+
+}

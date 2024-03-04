@@ -1,0 +1,14 @@
+.generate-claim-request {
+    display: none;
+}
+
+.generate-claim-request.active {
+    display: flex;
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    width: 40%;
+    border-radius: 5%;
+    background-color: rgb(222, 221, 221);
+    padding: 2%;
+}

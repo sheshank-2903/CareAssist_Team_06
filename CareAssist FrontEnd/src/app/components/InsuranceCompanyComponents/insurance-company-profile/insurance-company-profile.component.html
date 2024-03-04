@@ -1,0 +1,93 @@
+<div style="display: flex; justify-content: center; align-items: center; padding-top: 4%; padding-bottom: 4%;"
+  *ngIf="updateForm">
+
+  <i class="bi bi-pencil-square btn btn-primary" (click)="toggleEditable()"
+    style=" position: fixed;bottom: 8%;right: 10%;"></i>
+
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" style="width: 60%;">
+
+    <div class="form-group">
+      <label for="insuranceCompanyId">Insurance Company ID:</label>
+      <input type="number" readOnly placeholder="" class="form-control" id="insuranceCompanyId" required
+        formControlName="insuranceCompanyId">
+    </div>
+
+
+    <div class="form-group">
+      <label for="companyName">Company Name:</label>
+      <input type="text" [readOnly]="editable" class="form-control" id="companyName" formControlName="companyName"
+        required [ngClass]="{'is-invalid':f['companyName'].errors,'is-valid': !f['companyName'].errors}">
+
+      <div *ngIf="f['companyName'].errors && !f['companyName'].errors?.['required']" class="invalid-feedback">Company
+        Name can have only alphabets and length has to be between 5 to 20 letters</div>
+      <div *ngIf="!f['companyName'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!</div>
+      <div *ngIf="f['companyName'].errors?.['required']" style="color: red;">Company name cannot be empty</div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="insuranceCompanyDescription">Insurance Company Description:</label>
+      <textarea style="resize: none;" class="form-control" [readOnly]="editable" id="insuranceCompanyDescription"
+        formControlName="insuranceCompanyDescription" required
+        [ngClass]="{'is-invalid':f['insuranceCompanyDescription'].errors,'is-valid': !f['insuranceCompanyDescription'].errors}"></textarea>
+
+      <div *ngIf="f['insuranceCompanyDescription'].errors && !f['insuranceCompanyDescription'].errors?.['required']"
+        class="invalid-feedback">Description must have a length of 20 words</div>
+      <div *ngIf="!f['insuranceCompanyDescription'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks
+        good!</div>
+      <div *ngIf="f['insuranceCompanyDescription'].errors?.['required']" style="color: red;">Description cannot be empty
+      </div>
+    </div>
+
+
+
+    <div class="form-group">
+      <label for="companyContactNumber">Company Contact Number:</label>
+      <input type="tel" [readOnly]="editable" class="form-control" id="companyContactNumber"
+        formControlName="companyContactNumber" required
+        [ngClass]="{'is-invalid':f['companyContactNumber'].errors,'is-valid':!f['companyContactNumber'].errors}">
+
+      <div *ngIf="f['companyContactNumber'].errors && !f['companyContactNumber'].errors?.['required']"
+        class="invalid-feedback">Contact Number must have 10 digits</div>
+      <div *ngIf="!f['companyContactNumber'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!
+      </div>
+      <div *ngIf="f['companyContactNumber'].errors?.['required']" style="color: red;">Contact number cannot be empty
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" readOnly class="form-control" id="email" formControlName="email" required
+        [ngClass]="{'is-invalid':f['email'].errors,'is-valid':!f['email'].errors}">
+
+      <div *ngIf=" f['email'].errors" class="invalid-feedback"></div>
+      <div *ngIf="!f['email'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!</div>
+      <div *ngIf="f['email'].errors?.['required']" style="color: red;">Email cannot be empty</div>
+      <div *ngIf="f['email'].errors?.['email']" style="color: red;">Email must be valid</div>
+    </div>
+
+    <div class="form-group" *ngIf="!editable">
+      <label for="password">Password:</label>
+      <input type="password" [readOnly]="editable" class="form-control" id="password" formControlName="password"
+        required [ngClass]="{'is-invalid':f['password'].errors,'is-valid':!f['password'].errors}">
+      <div *ngIf="f['password'].errors && !f['password'].errors?.['required']" class="invalid-feedback">Password must
+        have at least 1 upper case, 1 lower case,1 special character, 1 digit and must be of minimum length 8</div>
+      <div *ngIf="!f['password'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!</div>
+      <div *ngIf="f['password'].errors?.['required']" style="color: red;">Password cannot be empty</div>
+    </div>
+
+    <div class="form-group" *ngIf="!editable">
+      <label for="confirm_password">Confirm Password:</label>
+      <input type="password" [readOnly]="editable" class="form-control" id="confirm_password"
+        formControlName="confirm_password" required
+        [ngClass]="{'is-invalid':f['confirm_password'].errors,'is-valid':!f['confirm_password'].errors}">
+      <div *ngIf="f['confirm_password'].errors?.['passwordMismatch']" class="invalid-feedback">Passwords do not match
+      </div>
+      <div *ngIf="!f['confirm_password'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="updateForm.invalid" *ngIf="!editable" class="btn btn-primary"
+      style="width: 100%;">Update Profile</button>
+  </form>
+</div>

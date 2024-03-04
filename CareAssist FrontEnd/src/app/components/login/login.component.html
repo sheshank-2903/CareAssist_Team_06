@@ -1,0 +1,36 @@
+<div class="login-form" style="background-color: aliceblue;">
+    <h2>Login Form</h2>
+    <form #formData=ngForm (ngSubmit)="readFormData(formData)">
+        <input type="email" placeholder="Email Address" name="email" #email="ngModel" ngModel required email>
+        <span *ngIf="email.errors?.['email']" style="color:red; margin-left:8%;">Invalid email format</span>
+        <span style="color:red; margin-left:8%;" *ngIf="email.touched && email.errors?.['required']">Email is required</span>
+        <input type="password" placeholder="Password" name="password" #password="ngModel" ngModel required>
+        <span style="color:red; margin-left:8%; margin-bottom: 2%;"
+            *ngIf="password.touched && password.errors?.['required']">Password is mandatory</span>
+        <div style="display: flex; justify-content: space-between; padding-left: 8%;">
+            <label for="role_admin" style="flex: 0.8;">
+                <input type="radio" id="role_admin" name="role" value="ADMIN"  [(ngModel)]="role">
+                Admin
+            </label>
+            <label for="role_patient" style="flex: 0.8;">
+                <input type="radio" id="role_patient" name="role" value="PATIENT"  [(ngModel)]="role">
+                Patient
+            </label>
+            <label for="role_provider" style="flex: 1.2;">
+                <input type="radio" id="role_provider" name="role" value="HEALTH_CARE_PROVIDER"
+                    [(ngModel)]="role">
+                Health Care Provider
+            </label>
+            <label for="role_insurance" style="flex: 1.2;">
+                <input type="radio" id="role_insurance" name="role" value="INSURANCE_COMPANY"
+                    [(ngModel)]="role">
+                Insurance Company
+            </label>
+        </div>
+        <button type="submit" style="font-size: 115%;" [disabled]="formData.invalid">
+            Login
+        </button>
+        <p style="margin:auto; padding: 5%;">New to our Website ? <a (click)="goToRegistration()">Register now</a></p>
+    </form>
+</div>
+

@@ -1,0 +1,32 @@
+.confirm-delete-popup {
+    display: none;
+}
+.confirm-delete-popup.active {
+    display: flex;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    width: 40%;
+    border-radius: 5%;
+    padding: 2%;
+    background-color: rgb(247, 242, 242)
+}
+
+.patientDisplay.active {
+    display: flex;
+    position: absolute;
+    background-color: rgb(222, 221, 221);
+    top: 9%;
+    left: 30%;
+    width: 40%;
+    min-width: 300px;
+    margin-left: auto;
+    margin-left: auto;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border-radius: 5%;
+}
+
+.patientDisplay {
+    display: none;
+}

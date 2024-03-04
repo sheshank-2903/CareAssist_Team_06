@@ -1,0 +1,32 @@
+<div style=" height: 100vh; ">
+    <nav class="navbar-toggler" style=" display: flex;  flex-direction: row;min-width:100vh;">
+        <div class="d-flex flex-column flex-lg-row"
+            style="width: 100%;">
+            <img src="../../../../assets/logo.png" alt="Logo" style="object-fit: fill;" width="80px" height="80px">
+            <div class="d-flex  flex-column flex-lg-row ml-lg-auto" style="margin-top: auto; margin-bottom: auto;">
+                <a (click)="openTab('home')" id="button-home" class="nav-link tab active">Home </a>
+                <a (click)="openTab('login')" id="button-login" class="nav-link tab">Login</a>
+                <a (click)="openTab('register')" id="button-register" class="nav-link tab">Register</a>
+                <a (click)="openTab('aboutUs')" id="button-aboutUs" class="nav-link tab">About Us</a>
+                <a (click)="openTab('feedback')" id="button-feedback" class="nav-link tab">Feedback</a>
+            </div>
+        </div>
+    </nav>
+
+    <div style=" min-height: 100%; padding-bottom: 5%; padding-top: 5%;  background-image: url('../../../../assets/bghome.png'); background-size: cover;">
+        <div class="home-content active" id="home">
+            <div class="homepage">
+                <h2>Welcome to CareAssist</h2>
+                <p>Efficiency meets innovation in healthcare billing. Explore our comprehensive solutions for seamless
+                    medical billing and claims management. Simplify administrative tasks and enhance patient care with
+                    CareAssist. Dive deeper into our offerings and revolutionize your billing experience.</p>
+                <button (click)="openTab('login')" class="explore-btn btn btn-outline-success">Explore More</button>
+            </div>
+        </div>
+
+        <app-login class="home-content" id="login"></app-login>
+        <app-registration class="home-content" id="register"></app-registration>
+        <app-feedback class="home-content" id="feedback"></app-feedback>
+        <app-about-us class="home-content" id="aboutUs"></app-about-us>
+    </div>
+</div>

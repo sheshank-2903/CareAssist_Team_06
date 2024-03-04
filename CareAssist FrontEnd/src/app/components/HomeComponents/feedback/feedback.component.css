@@ -1,0 +1,81 @@
+.login-form {
+    width: 40%;
+    min-width: 300px;
+    margin: auto;
+    background-color: #fff;
+    border-color: black;
+    border-radius: 15px;
+    animation: fadeUp 1s ease;
+}
+
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-form h2 {
+    padding-top: 20px;
+    padding-bottom: 25px;
+    background-image: linear-gradient(to right, rgb(23, 162, 184), rgb(141, 186, 253));
+    text-align: center;
+    color: #ffffff;
+    margin-top: -0.01%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.login-form form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+textarea {
+    width: 84%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 8%;
+    resize: none;
+}
+
+.login-form input[type="text"] {
+
+    width: 84%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 8%;
+}
+
+
+
+.login-form a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-form button {
+    width: 84%;
+    background-image: linear-gradient(to right, rgb(23, 162, 184), rgb(141, 186, 253));
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 25px;
+    margin-left: 8%;
+    margin-top: 5%;
+    margin-bottom: 7%;
+}

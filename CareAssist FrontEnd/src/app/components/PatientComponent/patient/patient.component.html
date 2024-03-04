@@ -1,0 +1,20 @@
+<nav class="navbar sticky-top navbar-dark bg-dark navbar-toggler" style="width: 100vh; min-width: 100%; padding: 1.5%;">
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse" id="navbarTogglerDemo01">
+        <div class="d-flex flex-column flex-lg-row">
+            <a (click)="openTab('browsePlans')" routerLink="/patient/browsePlans" id="btn-browsePlans" class="nav-link tab active" href="#">Browse Plans</a>
+            <a (click)="openTab('activePlans')" routerLink="/patient/activePlans" id="btn-activePlans" class="nav-link tab" href="#">Active Plans</a>
+            <a (click)="openTab('requestInvoice')"  routerLink="/patient/requestInvoice" id="btn-requestInvoice"  class="nav-link tab" href="#">Request Invoice</a>
+            <a (click)="openTab('myinvoices')" routerLink="/patient/myinvoices" id="btn-myinvoices" class="nav-link tab" href="#">My Invoices</a>
+            <a (click)="openTab('claims')" routerLink="/patient/claims" id="btn-claims" class="nav-link tab" href="#">My Claims</a>
+            <a (click)="openTab('home')" routerLink="/patient/home" id="btn-home" class="nav-link tab">My Profile</a>
+            <button class="btn btn-outline-light ml-lg-auto" (click)="logout()"><i class="bi bi-box-arrow-right"></i></button>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <router-outlet></router-outlet>
+</div>

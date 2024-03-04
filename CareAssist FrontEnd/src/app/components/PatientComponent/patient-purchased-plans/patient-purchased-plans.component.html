@@ -1,0 +1,75 @@
+<div class="container" style="margin-top: 2%;">
+  <div class="d-flex" style="margin-bottom: 2%;">
+    <input class="form-control" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="search">
+    <button type="button" class="btn btn-outline-info ml-3" (click)="searchPlanById()">
+      <i class="bi bi-search"></i>
+      Search By Id
+    </button>
+    <button type="button" class="btn btn-outline-info ml-3" (click)="searchPlanByName()">
+      <i class="bi bi-search"></i>
+      Search By Name
+    </button>
+    <button type="button" class="btn btn-outline-info ml-3" (click)="getPlansByPatientid()">
+      <i class="bi bi-arrow-clockwise"></i>
+    </button>
+  </div>
+  <table class="table mt-10% table-hover table-bordered text-center">
+    <thead class="thead-dark">
+      <tr>
+        <th>#planId</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Date of Creation</th>
+        <th>Coverage Amount</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let plan of purchasedPlansList">
+        <td>{{plan.planId}}</td>
+        <td>{{plan.planName}}</td>
+        <td>{{plan.description}}</td>
+        <td>{{plan.dateOfIssue}}</td>
+        <td>{{plan.coverageAmount}}</td>
+        <td><button type="button" class="btn btn-info" (click)="generateClaim(plan.planId)">
+            +
+            Generate Claim Request
+          </button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="generate-claim-request" id="generateClaimRequestDisplay">
+  <form #generateClaimForm="ngForm" style="width: 100%;">
+
+    <label style="display: block; ">Please enter Claim Amount </label>
+    <input type="number" style="margin: 2%; width: 82%;" name="claimAmount" [(ngModel)]="coverageAmount"
+      #claimAmount="ngModel" required min="10001">
+    <div *ngIf="claimAmount.errors?.['min'] && !claimAmount.errors?.['required']" style="color: red;">
+      Amount must be greater than 1000.
+    </div>
+
+    <label style="display: block; ">Please enter Invoice ID </label>
+    <input type="number" style="margin: 2%; width: 82%;" name="invoiceId" [(ngModel)]="selectedInvoiceId" required>
+
+    <label style="display: block; ">Please enter Patient ID </label>
+    <input type="number" style="margin: 2%; width: 82%;" name="patientId" disabled [ngModel]="patientId">
+
+    <label style="display: block; ">Please enter Plan ID </label>
+    <input type="number" style="margin: 2%; width: 82%;" name="planId" disabled [(ngModel)]="selectedPlanId" required>
+
+    <div>
+      <button class="btn btn-success" style="margin-right: 4%; margin-top: 2%; width: 40%;"
+        (click)="submitgenerateClaim()"
+        [disabled]="generateClaimForm.invalid || generateClaimForm.value.claimAmount < 10001">Request Claim</button>
+      <button class="btn btn-danger" style="margin-top: 2%; width: 40%;" (click)="closegenerateClaim()">Cancel</button>
+    </div>
+
+    <button type="button" style=" position: absolute; top: 0%; right: 0%;" class="btn btn-danger"
+      (click)="closegenerateClaim()">
+      <i class="bi bi-x-circle"></i>
+    </button>
+
+  </form>
+</div>

@@ -1,0 +1,22 @@
+.statusModelDisplay.active {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    position: absolute;
+    background-color: rgb(222, 221, 221);
+    top: 50%;
+    left: 50%;
+    width: 20%;
+    min-width: 300px;
+    margin-left: auto;
+    margin-left: auto;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    border-radius: 5%;
+}
+
+.statusModelDisplay {
+    display: none;
+}

@@ -1,0 +1,112 @@
+<!-- <app-admin></app-admin> -->
+<div class="container" style="margin-top: 2%;">
+  <div class="d-flex" style="margin-bottom: 2%;">
+    <input class="form-control" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="search">
+    <button type="button" class="btn btn-outline-info ml-3" (click)="searchAdminById()">
+      <i class="bi bi-search"></i>
+      Search By Id
+    </button>
+    <button type="button" class="btn btn-outline-info ml-3" (click)="searchAdminByName()">
+      <i class="bi bi-search"></i>
+      Search By Name
+    </button>
+    <button type="button" class="btn btn-outline-info ml-3" (click)="getAllAdmin()">
+      <i class="bi bi-arrow-clockwise"></i>
+    </button>
+    <button type="button" class="btn btn-success ml-3" (click)="toggleAddAdmin()">+ Add Admin</button>
+  </div>
+
+  <table class="table mt-10% table-hover table-bordered text-center">
+    <thead class="thead-dark">
+      <tr>
+        <th>#id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let admin of adminList" [ngStyle]="{'display': getDisplay(admin.adminId)}">
+        <td>{{admin.adminId}}</td>
+        <td>{{admin.adminName}}</td>
+        <td>{{admin.email}}</td>
+        <td>
+          <button type="button" class="btn btn-danger" (click)="confirmDelete(admin.adminId)">
+            <i class="bi bi-trash3"></i>
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Modal -->
+  <div id="addAdminFormModel" class="addAdminDisplay">
+    <form style="margin: auto; width: 80%;" [formGroup]="addAdminForm">
+      <div class="form-group">
+        <label for="adminName">Name:</label>
+        <input type="text" class="form-control" id="adminName" formControlName="adminName" required
+          [ngClass]="{'is-invalid':getAdminForm['adminName'].errors,'is-valid': !getAdminForm['adminName'].errors}">
+        <div *ngIf="getAdminForm['adminName'].errors && !getAdminForm['adminName'].errors?.['required']"
+          class="invalid-feedback">Admin Name can have only alphabets and length has to be between 3 to 20 letters</div>
+        <div *ngIf="!getAdminForm['adminName'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks
+          good!</div>
+        <div *ngIf="getAdminForm['adminName'].errors?.['required']" style="color: red;">Admin name cannot be empty</div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" formControlName="email" required
+          [ngClass]="{'is-invalid':getAdminForm['email'].errors,'is-valid':!getAdminForm['email'].errors}">
+        <div *ngIf=" getAdminForm['email'].errors" class="invalid-feedback"></div>
+        <div *ngIf="!getAdminForm['email'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!
+        </div>
+        <div *ngIf="getAdminForm['email'].errors?.['required']" style="color: red;">Email cannot be empty</div>
+        <div *ngIf="getAdminForm['email'].errors?.['email']" style="color: red;">Email must be valid</div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" formControlName="password" required
+          [ngClass]="{'is-invalid':getAdminForm['password'].errors,'is-valid':!getAdminForm['password'].errors}">
+        <div *ngIf="getAdminForm['password'].errors && !getAdminForm['password'].errors?.['required']"
+          class="invalid-feedback">Password must have at least 1 upper case, 1 lower case,1 special character, 1 digit
+          and must be of minimum length 8</div>
+        <div *ngIf="!getAdminForm['password'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!
+        </div>
+        <div *ngIf="getAdminForm['password'].errors?.['required']" style="color: red;">Password cannot be empty</div>
+      </div>
+      <div class="form-group">
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" class="form-control" id="confirm_password" formControlName="confirm_password" required
+          [ngClass]="{'is-invalid':getAdminForm['confirm_password'].errors,'is-valid':!getAdminForm['confirm_password'].errors}">
+        <div *ngIf="getAdminForm['confirm_password'].errors?.['passwordMismatch']" class="invalid-feedback">Passwords do
+          not match</div>
+        <div *ngIf="!getAdminForm['confirm_password'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">
+          Looks good!</div>
+      </div>
+      <button type="submit" [disabled]="addAdminForm.invalid" (click)="onSubmit()" class="btn btn-primary"
+        style="width: 100%;">Create New Admin</button>
+      <button type="button" style="  position: absolute; top: 0%; right: 0%;" class="btn btn-danger"
+        (click)="toggleAddAdmin()">
+        <i class="bi bi-x-circle"></i>
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- Delete Model -->
+<div class="confirm-delete-popup" id="confirmDeleteDisplay">
+  <form #purchaseForm="ngForm">
+    <label style="display: block; ">Please confirm your purchase by typing "DELETE" below: </label>
+    <input type="text" style="margin: 2%;  width: 82%;" name="confirmation" [(ngModel)]="confirmation" required>
+    <div>
+      <button class="btn btn-success" style="margin-right: 2%; margin-top:2% ; width: 40%;"
+        (click)="submitConfirmDelete()" [disabled]="purchaseForm.value.confirmation!=='DELETE'">Confirm Delete</button>
+      <button class="btn btn-danger" style=" width: 40%; margin-top:2% ;"
+        (click)="closeDeleteModel()">Cancel</button>
+    </div>
+    <button type="button" style="position: absolute; top: 0%; right: 0%;" class="btn btn-danger"
+      (click)="closeDeleteModel()">
+      <i class="bi bi-x-circle"></i>
+    </button>
+  </form>
+</div>

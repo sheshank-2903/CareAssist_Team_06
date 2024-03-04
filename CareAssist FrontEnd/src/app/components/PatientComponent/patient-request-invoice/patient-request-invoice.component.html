@@ -1,0 +1,84 @@
+<div class="container" style="margin-top: 2%;">
+  <div class="d-flex" style="margin-bottom: 2%;">
+    <input class="form-control" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="search">
+    <button type="button" class="btn btn-outline-info ml-3" (click)="searchHealthCareProviderById()">
+      <i class="bi bi-search"></i>
+      Search By Id
+    </button>
+    <button type="button" class="btn btn-outline-info ml-3" (click)="searchHealthCareProviderByName()">
+      <i class="bi bi-search"></i>
+      Search By Name
+    </button>
+    <button type="button" class="btn btn-outline-info ml-3" (click)="getHealthCareProviders()">
+      <i class="bi bi-arrow-clockwise"></i>
+    </button>
+
+  </div>
+  <table class="table mt-10% table-hover table-bordered text-center">
+    <thead class="thead-dark">
+      <tr>
+        <th>#HealthCareId</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Address</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let healthcareProvider of healthCareProviderList">
+        <td>{{healthcareProvider.healthCareProviderId}}</td>
+        <td>{{healthcareProvider.healthCareProviderName}}</td>
+        <td>{{healthcareProvider.providerGender}}</td>
+        <td>{{healthcareProvider.address}}</td>
+        <td>{{healthcareProvider.email}}</td>
+        <td>
+          <button type="button" class="btn btn-info"
+            (click)="openInvoiceRequest(healthcareProvider.healthCareProviderId)">
+            +
+            Request Invoice
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="request-invoice" id="requestInvoiceDisplay">
+  <form #requestInvoiceForm="ngForm" style="width: 100%;">
+
+    <label style="display: block; ">Please enter Invoice Due Date </label>
+    <input type="date" style="margin: 2%; width: 82%;" name="invoiceDueDate" [(ngModel)]="invoiceDueDate" required>
+    <div *ngIf="isDueDateInvalid(requestInvoiceForm.value) " style="color: red; margin-bottom: 2%;">Invalid Due Date
+    </div>
+
+    <label style="display: block; ">Invoice Tax </label>
+    <input type="number" style="margin: 2%; width: 82%;" name="invoiceTax" [(ngModel)]="invoiceTax" required>
+
+    <label style="display: block; ">Consulting Fees</label>
+    <input type="number" style="margin: 2%; width: 82%;" name="consultingFees" [(ngModel)]="consultingFees" required>
+
+    <label style="display: block; ">Diagnostic Test Fees</label>
+    <input type="number" style="margin: 2%; width: 82%;" name="diagnosticTestFees" [(ngModel)]="diagnosticTestFees"
+      required>
+
+    <label style="display: block; ">Diagnostic Scan Fees</label>
+    <input type="number" style="margin: 2%; width: 82%;" name="diagnosticScanFees" [(ngModel)]="diagnosticScanFees"
+      required>
+
+    <label style="display: block; ">Please enter Health Care Provider ID </label>
+    <input type="number" style="margin: 2%; width: 82%;" name="healthCareProviderId" disabled
+      [(ngModel)]="currentHealthCareProviderId" required>
+
+    <div>
+      <button class="btn btn-success" style="margin-right: 4%; margin-top: 2%; width: 40%;"
+        (click)="submitInvoiceRequest()"
+        [disabled]="requestInvoiceForm.invalid || isDueDateInvalid(requestInvoiceForm.value) ">Request Invoice</button>
+      <button class="btn btn-danger" style="margin-top: 2%; width: 40%;" (click)="closeInvoiceRequest()">Cancel</button>
+    </div>
+    <button type="button" style="position: absolute; top: 0%; right: 0%;" class="btn btn-danger"
+      (click)="closeInvoiceRequest()">
+      <i class="bi bi-x-circle"></i>
+    </button>
+  </form>
+</div>

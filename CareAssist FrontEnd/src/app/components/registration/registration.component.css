@@ -1,0 +1,84 @@
+.main-container {
+    padding-top: 4%;
+    padding-left: 2%;
+    padding-right: 2%;
+    animation: fadeUp 1s ease;
+}
+
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.tab-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+}
+
+.tab-container button {
+    outline: none;
+    box-shadow: #ffffff;
+}
+
+.tab {
+    width: 100%;
+    color: rgb(23, 162, 184);
+    border-color: rgb(23, 162, 184);
+    background-color: rgb(255, 255, 255);
+    padding: 1.5%;
+    border-radius: 10px;
+
+}
+
+
+
+#button-healthCare {
+    margin-right: 2%;
+    margin-left: 2%;
+}
+
+
+.tab:hover {
+    color: rgb(255, 255, 255);
+    border-color: rgb(23, 162, 184);
+    background-color: rgb(23, 162, 184);
+
+}
+
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    border: 1px solid #ccc;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    backdrop-filter: blur(10px);
+    border-radius: 5%;
+}
+
+
+.tab-content.active {
+    display: block;
+    border: none;
+
+}
+
+
+.tab.active {
+    color: rgb(255, 255, 255);
+    border-color: rgb(23, 162, 184);
+    background-color: rgb(23, 162, 184);
+    border: none;
+}

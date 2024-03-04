@@ -1,0 +1,9 @@
+.tab {
+    font-weight: 300;
+    color: azure;
+}
+
+.tab.active {
+    font-weight: bold;
+    color:white;
+}

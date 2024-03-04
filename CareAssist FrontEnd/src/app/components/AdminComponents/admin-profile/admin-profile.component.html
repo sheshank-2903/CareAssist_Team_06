@@ -1,0 +1,55 @@
+<div style="display: flex; justify-content: center; align-items: center; padding-bottom: 4%;"
+  *ngIf="updateForm">
+  <i class="bi bi-pencil-square btn btn-primary" (click)="toggleEditable()"
+    style=" position: fixed;bottom: 8%;right: 10%;"></i>
+  <form style="width: 60%;" [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="adminId">Admin ID:</label>
+      <input type="number" readonly="true" class="form-control" id="adminId" formControlName="adminId" required>
+    </div>
+    <div class="form-group">
+      <label for="adminName">Name:</label>
+      <input type="text" [readOnly]="editable" class="form-control" id="adminName" formControlName="adminName" required
+        [ngClass]="{'is-invalid':getAdminForm['adminName'].errors,'is-valid': !getAdminForm['adminName'].errors}">
+      <div *ngIf="getAdminForm['adminName'].errors && !getAdminForm['adminName'].errors?.['required']"
+        class="invalid-feedback">Admin Name can have only alphabets and length has to be between 3 to 20 letters</div>
+      <div *ngIf="!getAdminForm['adminName'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!
+      </div>
+      <div *ngIf="getAdminForm['adminName'].errors?.['required']" style="color: red;">Admin name cannot be empty</div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" [readOnly]="editable" class="form-control" id="email" formControlName="email" required
+        [ngClass]="{'is-invalid':getAdminForm['email'].errors,'is-valid':!getAdminForm['email'].errors}">
+      <div *ngIf=" getAdminForm['email'].errors" class="invalid-feedback"></div>
+      <div *ngIf="!getAdminForm['email'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!
+      </div>
+      <div *ngIf="getAdminForm['email'].errors?.['required']" style="color: red;">Email cannot be empty</div>
+      <div *ngIf="getAdminForm['email'].errors?.['email']" style="color: red;">Email must be valid</div>
+    </div>
+    <div class="form-group" *ngIf="!editable">
+      <label for="password">Password:</label>
+      <input type="password" [readOnly]="editable" class="form-control" id="password" formControlName="password"
+        required [ngClass]="{'is-invalid':getAdminForm['password'].errors,'is-valid':!getAdminForm['password'].errors}">
+      <div *ngIf="getAdminForm['password'].errors && !getAdminForm['password'].errors?.['required']"
+        class="invalid-feedback">Password must have at least 1 upper case, 1 lower case,1 special character, 1 digit and
+        must be of minimum length 8</div>
+      <div *ngIf="!getAdminForm['password'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!
+      </div>
+      <div *ngIf="getAdminForm['password'].errors?.['required']" style="color: red;">Password cannot be empty</div>
+    </div>
+
+    <div class="form-group" *ngIf="!editable">
+      <label for="confirm_password">Confirm Password:</label>
+      <input type="password" [readOnly]="editable" class="form-control" id="confirm_password"
+        formControlName="confirm_password" required
+        [ngClass]="{'is-invalid':getAdminForm['confirm_password'].errors,'is-valid':!getAdminForm['confirm_password'].errors}">
+      <div *ngIf="getAdminForm['confirm_password'].errors?.['passwordMismatch']" class="invalid-feedback">Passwords do
+        not match</div>
+      <div *ngIf="!getAdminForm['confirm_password'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks
+        good!</div>
+    </div>
+    <button type="submit" *ngIf="!editable" [disabled]="updateForm.invalid" class="btn btn-primary"
+      style="width: 100%;">Submit Profile</button>
+  </form>
+</div>

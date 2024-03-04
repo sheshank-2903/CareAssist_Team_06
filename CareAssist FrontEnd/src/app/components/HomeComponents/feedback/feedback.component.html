@@ -1,0 +1,10 @@
+<div class="login-form" style="background-color: aliceblue;">
+    <h2>Feedback Form</h2>
+    <form #formData=ngForm (ngSubmit)="readFormData(formData)">
+        <input type="text" placeholder="Name" name="name" #name="ngModel" ngModel required >
+        <span style="color:red; margin-left:8%;" *ngIf="name.touched && name.errors?.['required']">Name is required</span>
+        <textarea type="text" placeholder="Message" name="message" #message="ngModel" ngModel required></textarea>
+        <span style="color:red; margin-left:8%;" *ngIf="message.touched && message.errors?.['required']">Message is required</span>
+        <button type="submit" style="font-size: 115%;">Send Feedback</button>
+    </form>
+</div>

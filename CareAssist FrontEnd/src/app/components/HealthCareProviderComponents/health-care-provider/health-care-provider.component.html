@@ -1,0 +1,18 @@
+<nav class="navbar sticky-top navbar-dark bg-dark navbar-toggler" style="width: 100vh; min-width: 100%; padding: 1.5%;">
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+        aria-controls="navbarTogglerDemo01" aria-expanded="true" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse" id="navbarTogglerDemo01">
+        <div class="d-flex flex-column flex-lg-row">
+            <a (click)="openTab('home')" routerLink="/healthCareProvider/home" id="btn-home" class="nav-link tab active">Home </a>
+            <a (click)="openTab('invoiceHistory')"  routerLink="/healthCareProvider/invoiceHistory" id="btn-invoiceHistory" class="nav-link tab">Invoice History</a>
+            <a (click)="openTab('patient')" routerLink="/healthCareProvider/patient" id="btn-patient" class="nav-link tab" >View Patient Details</a>
+            <a (click)="openTab('profile')" routerLink="/healthCareProvider/profile" id="btn-profile" class="nav-link tab" >My Profile</a>
+            <button class="btn btn-outline-light ml-lg-auto" (click)="logout()"><i class="bi bi-box-arrow-right"></i></button>
+        </div>
+    </div>
+</nav>
+<div>
+    <router-outlet></router-outlet>
+</div>

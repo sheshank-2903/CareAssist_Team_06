@@ -1,0 +1,96 @@
+<div style="display: flex; justify-content: center; align-items: center; padding-bottom: 4%;"
+  *ngIf="updateForm">
+
+  <i class="bi bi-pencil-square btn btn-primary" (click)="toggleEditable()"
+    style=" position: fixed;bottom: 8%;right: 10%;"></i>
+
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" style="width: 60%;">
+
+    <div class="form-group">
+      <label for="healthCareProviderId">Health Care ID:</label>
+      <input type="number" readOnly placeholder="" class="form-control" formControlName="healthCareProviderId"
+        id="healthCareProviderId" required>
+    </div>
+    <div class="form-group">
+      <label for="healthCareProviderName">Health Care Provider Name:</label>
+      <input type="text" [readOnly]="editable" class="form-control" id="healthCareProviderName"
+        formControlName="healthCareProviderName" required
+        [ngClass]="{'is-invalid':getHealthCareProvider['healthCareProviderName'].errors,'is-valid': !getHealthCareProvider['healthCareProviderName'].errors}">
+
+      <div
+        *ngIf="getHealthCareProvider['healthCareProviderName'].errors && !getHealthCareProvider['healthCareProviderName'].errors?.['required']"
+        class="invalid-feedback">Health Care Provider Name can have only alphabets and length has to be between 3 to 20
+        letters</div>
+      <div *ngIf="!getHealthCareProvider['healthCareProviderName'].errors" class="valid-feedback"
+        style="color: rgb(9, 199, 34);">Looks good!</div>
+      <div *ngIf="getHealthCareProvider['healthCareProviderName'].errors?.['required']" style="color: red;">Health Care
+        Provider name cannot be empty</div>
+    </div>
+    <div style="display: flex; flex-direction: column;">
+      <label for="healthCareProviderName">Gender:</label>
+      <div style="display: flex; flex-direction: row;">
+        <label style="border-radius: 8%; " class="btn btn-outline-primary" for="MALE">
+          <input type="radio" id="MALE" name="providerGender" formControlName="providerGender" [value]="'MALE'"
+            [checked]="updateForm.get('patientGender')?.value === 'MALE'" [attr.disabled]="editable ? true : null">
+          Male
+        </label>
+        <label style="margin-left: 5%; border-radius: 8%;" class="btn btn-outline-primary" for="FEMALE">
+          <input type="radio" id="FEMALE" name="providerGender" formControlName="providerGender" [value]="'FEMALE'"
+            [checked]="updateForm.get('patientGender')?.value === 'MALE'" [attr.disabled]="editable ? true : null">
+          Female
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="address">Address</label>
+      <textarea style="resize: none;" class="form-control" [readOnly]="editable" id="address" formControlName="address"
+        required
+        [ngClass]="{'is-invalid':getHealthCareProvider['address'].errors,'is-valid': !getHealthCareProvider['address'].errors}"></textarea>
+
+      <div *ngIf="!getHealthCareProvider['address'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks
+        good!</div>
+      <div *ngIf="getHealthCareProvider['address'].errors?.['required']" style="color: red;">Address cannot be empty
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" readOnly class="form-control" id="email" formControlName="email" required
+        [ngClass]="{'is-invalid':getHealthCareProvider['email'].errors,'is-valid':!getHealthCareProvider['email'].errors}">
+
+      <div *ngIf=" getHealthCareProvider['email'].errors" class="invalid-feedback"></div>
+      <div *ngIf="!getHealthCareProvider['email'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks
+        good!</div>
+      <div *ngIf="getHealthCareProvider['email'].errors?.['required']" style="color: red;">Email cannot be empty</div>
+      <div *ngIf="getHealthCareProvider['email'].errors?.['email']" style="color: red;">Email must be valid</div>
+    </div>
+
+    <div class="form-group" *ngIf="!editable">
+      <label for="password">Password:</label>
+      <input type="password" [readOnly]="editable" class="form-control" id="password" formControlName="password"
+        required
+        [ngClass]="{'is-invalid':getHealthCareProvider['password'].errors,'is-valid':!getHealthCareProvider['password'].errors}">
+      <div *ngIf="getHealthCareProvider['password'].errors && !getHealthCareProvider['password'].errors?.['required']"
+        class="invalid-feedback">Password must have at least 1 upper case, 1 lower case,1 special character, 1 digit and
+        must be of minimum length 8</div>
+      <div *ngIf="!getHealthCareProvider['password'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">
+        Looks good!</div>
+      <div *ngIf="getHealthCareProvider['password'].errors?.['required']" style="color: red;">Password cannot be empty
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="!editable">
+      <label for="confirm_password">Confirm Password:</label>
+      <input type="password" [readOnly]="editable" class="form-control" id="confirm_password"
+        formControlName="confirm_password" required
+        [ngClass]="{'is-invalid':getHealthCareProvider['confirm_password'].errors,'is-valid':!getHealthCareProvider['confirm_password'].errors}">
+      <div *ngIf="getHealthCareProvider['confirm_password'].errors?.['passwordMismatch']" class="invalid-feedback">
+        Passwords do not match</div>
+      <div *ngIf="!getHealthCareProvider['confirm_password'].errors" class="valid-feedback"
+        style="color: rgb(9, 199, 34);">Looks good!</div>
+    </div>
+
+    <button type="submit" [disabled]="updateForm.invalid" *ngIf="!editable" class="btn btn-primary"
+      style="width: 100%;">Update Profile</button>
+  </form>
+</div>

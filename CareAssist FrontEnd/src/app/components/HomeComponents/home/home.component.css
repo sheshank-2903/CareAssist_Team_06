@@ -1,0 +1,64 @@
+.home-content {
+    display: none;
+}
+
+.home-content.active {
+    display: block;
+}
+
+.tab {
+    font-weight: 300;
+}
+
+.tab.active {
+    font-weight: bold;
+}
+
+.homepage {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    border-radius: 5%;
+    text-align: center;
+    animation: fadeUp 2s ease;
+
+}
+
+.homepage:hover {
+    transform: translateY(-5px);
+    box-shadow: 10px 10px 50px 30px lightblue;
+}
+
+.homepage h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+.homepage p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #666666;
+    margin-bottom: 30px;
+}
+
+.explore-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+

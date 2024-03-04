@@ -1,0 +1,59 @@
+.aboutus-container {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: row;
+    animation: fadeUp 1s ease;
+}
+
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.about1 {
+    margin-left: 2%;
+    margin-right: 2%;
+    border-radius: 15px;
+    padding: 2%;
+    backdrop-filter: blur(10px);
+    width: 70%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-image {
+    border-radius: 50%;
+    width: 20%;
+    height: 25%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style-type: disc;
+    margin-bottom: 10px;
+    padding-left: 20px;
+}

@@ -1,0 +1,289 @@
+<div class="main-container">
+  <div class="tab-container">
+    <button class="tab active" id="button-patient" (click)="openTab('patient')">Patient</button>
+    <button class="tab" id="button-healthCare" (click)="openTab('healthCare')">Health Care Provider</button>
+    <button class="tab" id="button-insurance" (click)="openTab('insurance')">Insurance</button>
+  </div>
+
+  <!-- patient -->
+  <div id="patient" class="tab-content active">
+    <div style="display: flex; justify-content: center; align-items: center; padding-top: 4%; padding-bottom: 4%;">
+      <form [formGroup]="patientRegistrationForm" (ngSubmit)="onSubmitPatinet()" style="width: 80%;">
+
+        <div class="form-group">
+          <label for="patientName">Patient Name:</label>
+          <input type="text" class="form-control" id="patientName" formControlName="patientName" required
+            [ngClass]="{'is-invalid':getPatientForm['patientName'].errors,'is-valid': !getPatientForm['patientName'].errors}">
+
+          <div *ngIf="getPatientForm['patientName'].errors && !getPatientForm['patientName'].errors?.['required']"
+            class="invalid-feedback">Patient Name can have only alphabets and length has to be between 3 to 20 letters
+          </div>
+          <div *ngIf="!getPatientForm['patientName'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">
+            Looks good!</div>
+          <div *ngIf="getPatientForm['patientName'].errors?.['required']" style="color: red;">Patient name cannot be
+            empty</div>
+        </div>
+        <div class="form-group">
+          <label for="contact">Contact Number:</label>
+          <input type="tel" class="form-control" id="contact" formControlName="contact" required
+            [ngClass]="{'is-invalid':getPatientForm['contact'].errors,'is-valid':!getPatientForm['contact'].errors}">
+
+          <div *ngIf="getPatientForm['contact'].errors && !getPatientForm['contact'].errors?.['required']"
+            class="invalid-feedback">Contact Number must have 10 digits</div>
+          <div *ngIf="!getPatientForm['contact'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks
+            good!</div>
+          <div *ngIf="getPatientForm['contact'].errors?.['required']" style="color: red;">Contact number cannot be empty
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; margin-bottom: 5%;">
+          <label for="healthCareProviderName">Gender:</label>
+          <div style="display: flex; flex-direction: row;">
+            <select id="patientGender" formControlName="patientGender">
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="dob">Date Of Birth: </label>
+          <input type="date" class="form-control" id="dob" [max]="getYesterdayDate()" formControlName="dob" required
+            [ngClass]="{'is-invalid':getPatientForm['dob'].errors,'is-valid':!getPatientForm['dob'].errors}">
+
+          <div *ngIf="!getPatientForm['dob'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks good!
+          </div>
+          <div *ngIf="getPatientForm['dob'].errors?.['required']" style="color: red;">Please enter a date</div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="address">Address</label>
+          <textarea style="resize: none;" class="form-control" id="address" formControlName="address" required
+            [ngClass]="{'is-invalid':getPatientForm['address'].errors,'is-valid': !getPatientForm['address'].errors}"></textarea>
+
+          <div *ngIf="!getPatientForm['address'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks
+            good!</div>
+          <div *ngIf="getPatientForm['address'].errors?.['required']" style="color: red;">Address cannot be empty</div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="address">Description Of Treatment: </label>
+          <textarea style="resize: none;" class="form-control" id="descriptionOfTreatment"
+            formControlName="descriptionOfTreatment" required
+            [ngClass]="{'is-invalid':getPatientForm['descriptionOfTreatment'].errors,'is-valid': !getPatientForm['descriptionOfTreatment'].errors}"></textarea>
+
+          <div *ngIf="!getPatientForm['descriptionOfTreatment'].errors" class="valid-feedback"
+            style="color: rgb(9, 199, 34);">Looks good!</div>
+          <div *ngIf="getPatientForm['descriptionOfTreatment'].errors?.['required']" style="color: red;">Description Of
+            Treatment cannot be empty</div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" id="email" formControlName="email" required
+            [ngClass]="{'is-invalid':getPatientForm['email'].errors,'is-valid':!getPatientForm['email'].errors}">
+
+          <div *ngIf=" getPatientForm['email'].errors" class="invalid-feedback"></div>
+          <div *ngIf="!getPatientForm['email'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks
+            good!</div>
+          <div *ngIf="getPatientForm['email'].errors?.['required']" style="color: red;">Email cannot be empty</div>
+          <div *ngIf="getPatientForm['email'].errors?.['email']" style="color: red;">Email must be valid</div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" id="password" formControlName="password" required
+            [ngClass]="{'is-invalid':getPatientForm['password'].errors,'is-valid':!getPatientForm['password'].errors}">
+          <div *ngIf="getPatientForm['password'].errors && !getPatientForm['password'].errors?.['required']"
+            class="invalid-feedback">Password must have at least 1 upper case, 1 lower case,1 special character, 1 digit
+            and must be of minimum length 8</div>
+          <div *ngIf="!getPatientForm['password'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks
+            good!</div>
+          <div *ngIf="getPatientForm['password'].errors?.['required']" style="color: red;">Password cannot be empty
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm_password">Confirm Password:</label>
+          <input type="password" class="form-control" id="confirm_password" formControlName="confirm_password" required
+            [ngClass]="{'is-invalid':getPatientForm['confirm_password'].errors,'is-valid':!getPatientForm['confirm_password'].errors}">
+          <div *ngIf="getPatientForm['confirm_password'].errors?.['passwordMismatch']" class="invalid-feedback">
+            Passwords do not match</div>
+          <div *ngIf="!getPatientForm['confirm_password'].errors" class="valid-feedback"
+            style="color: rgb(9, 199, 34);">Looks good!</div>
+        </div>
+
+        <button type="submit" [disabled]="patientRegistrationForm.invalid" class="btn btn-primary"
+          style="width: 100%;">Add Profile</button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- healthcare -->
+  <div id="healthCare" class="tab-content">
+    <div style="display: flex; justify-content: center; align-items: center; padding-top: 4%; padding-bottom: 4%;">
+      <form [formGroup]="HealthCareRegistrationForm" (ngSubmit)="onSubmitHealthCare()" style="width: 80%;">
+        <div class="form-group">
+          <label for="healthCareProviderName">Health Care Provider Name:</label>
+          <input type="text" class="form-control" id="healthCareProviderName" formControlName="healthCareProviderName"
+            required
+            [ngClass]="{'is-invalid':getHealthCareProvider['healthCareProviderName'].errors,'is-valid': !getHealthCareProvider['healthCareProviderName'].errors}">
+
+          <div
+            *ngIf="getHealthCareProvider['healthCareProviderName'].errors && !getHealthCareProvider['healthCareProviderName'].errors?.['required']"
+            class="invalid-feedback">Health Care Provider Name can have only alphabets and length has to be between 3 to
+            20 letters</div>
+          <div *ngIf="!getHealthCareProvider['healthCareProviderName'].errors" class="valid-feedback"
+            style="color: rgb(9, 199, 34);">Looks good!</div>
+          <div *ngIf="getHealthCareProvider['healthCareProviderName'].errors?.['required']" style="color: red;">Health
+            Care Provider name cannot be empty</div>
+        </div>
+        <div style="display: flex; flex-direction: column; margin-bottom: 5%;">
+          <label for="providerGender">Gender:</label>
+          <div style="display: flex; flex-direction: row;">
+            <select id="providerGender" formControlName="providerGender">
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <textarea style="resize: none;" class="form-control" id="address" formControlName="address" required
+            [ngClass]="{'is-invalid':getHealthCareProvider['address'].errors,'is-valid': !getHealthCareProvider['address'].errors}"></textarea>
+          <div *ngIf="!getHealthCareProvider['address'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">
+            Looks good!</div>
+          <div *ngIf="getHealthCareProvider['address'].errors?.['required']" style="color: red;">Address cannot be empty
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" id="email" formControlName="email" required
+            [ngClass]="{'is-invalid':getHealthCareProvider['email'].errors,'is-valid':!getHealthCareProvider['email'].errors}">
+          <div *ngIf=" getHealthCareProvider['email'].errors" class="invalid-feedback"></div>
+          <div *ngIf="!getHealthCareProvider['email'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">
+            Looks good!</div>
+          <div *ngIf="getHealthCareProvider['email'].errors?.['required']" style="color: red;">Email cannot be empty
+          </div>
+          <div *ngIf="getHealthCareProvider['email'].errors?.['email']" style="color: red;">Email must be valid</div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" id="password" formControlName="password" required
+            [ngClass]="{'is-invalid':getHealthCareProvider['password'].errors,'is-valid':!getHealthCareProvider['password'].errors}">
+          <div
+            *ngIf="getHealthCareProvider['password'].errors && !getHealthCareProvider['password'].errors?.['required']"
+            class="invalid-feedback">Password must have at least 1 upper case, 1 lower case,1 special character, 1 digit
+            and must be of minimum length 8</div>
+          <div *ngIf="!getHealthCareProvider['password'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">
+            Looks good!</div>
+          <div *ngIf="getHealthCareProvider['password'].errors?.['required']" style="color: red;">Password cannot be
+            empty</div>
+        </div>
+        <div class="form-group">
+          <label for="confirm_password">Confirm Password:</label>
+          <input type="password" class="form-control" id="confirm_password" formControlName="confirm_password" required
+            [ngClass]="{'is-invalid':getHealthCareProvider['confirm_password'].errors,'is-valid':!getHealthCareProvider['confirm_password'].errors}">
+          <div *ngIf="getHealthCareProvider['confirm_password'].errors?.['passwordMismatch']" class="invalid-feedback">
+            Passwords do not match</div>
+          <div *ngIf="!getHealthCareProvider['confirm_password'].errors" class="valid-feedback"
+            style="color: rgb(9, 199, 34);">Looks good!</div>
+        </div>
+        <button type="submit" [disabled]="HealthCareRegistrationForm.invalid" class="btn btn-primary"
+          style="width: 100%;">Add Profile</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- insurance -->
+  <div id="insurance" class="tab-content">
+    <div style="display: flex; justify-content: center; align-items: center; padding-top: 4%; padding-bottom: 4%;">
+      <form [formGroup]=" insuranceRegistrationForm" (ngSubmit)="onSubmitInsuranceCompany()" style="width: 80%;">
+        <div class="form-group">
+          <label for="companyName">Company Name:</label>
+          <input type="text" class="form-control" id="companyName" formControlName="companyName" required
+            [ngClass]="{'is-invalid':getInsuranceForm['companyName'].errors,'is-valid': !getInsuranceForm['companyName'].errors}">
+
+          <div *ngIf="getInsuranceForm['companyName'].errors && !getInsuranceForm['companyName'].errors?.['required']"
+            class="invalid-feedback">Company Name can have only alphabets and length has to be between 5 to 20 letters
+          </div>
+          <div *ngIf="!getInsuranceForm['companyName'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">
+            Looks good!</div>
+          <div *ngIf="getInsuranceForm['companyName'].errors?.['required']" style="color: red;">Company name cannot be
+            empty</div>
+        </div>
+        <div class="form-group">
+          <label for="insuranceCompanyDescription">Insurance Company Description:</label>
+          <textarea style="resize: none;" class="form-control" id="insuranceCompanyDescription"
+            formControlName="insuranceCompanyDescription" required
+            [ngClass]="{'is-invalid':getInsuranceForm['insuranceCompanyDescription'].errors,'is-valid': !getInsuranceForm['insuranceCompanyDescription'].errors}"></textarea>
+
+          <div
+            *ngIf="getInsuranceForm['insuranceCompanyDescription'].errors && !getInsuranceForm['insuranceCompanyDescription'].errors?.['required']"
+            class="invalid-feedback">Description must have a length of 20 words</div>
+          <div *ngIf="!getInsuranceForm['insuranceCompanyDescription'].errors" class="valid-feedback"
+            style="color: rgb(9, 199, 34);">Looks good!</div>
+          <div *ngIf="getInsuranceForm['insuranceCompanyDescription'].errors?.['required']" style="color: red;">
+            Description cannot be empty</div>
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="companyContactNumber">Company Contact Number:</label>
+          <input type="tel" class="form-control" id="companyContactNumber" formControlName="companyContactNumber"
+            required
+            [ngClass]="{'is-invalid':getInsuranceForm['companyContactNumber'].errors,'is-valid':!getInsuranceForm['companyContactNumber'].errors}">
+
+          <div
+            *ngIf="getInsuranceForm['companyContactNumber'].errors && !getInsuranceForm['companyContactNumber'].errors?.['required']"
+            class="invalid-feedback">Contact Number must have 10 digits</div>
+          <div *ngIf="!getInsuranceForm['companyContactNumber'].errors" class="valid-feedback"
+            style="color: rgb(9, 199, 34);">Looks good!</div>
+          <div *ngIf="getInsuranceForm['companyContactNumber'].errors?.['required']" style="color: red;">Contact number
+            cannot be empty</div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" id="email" formControlName="email" required
+            [ngClass]="{'is-invalid':getInsuranceForm['email'].errors,'is-valid':!getInsuranceForm['email'].errors}">
+
+          <div *ngIf=" getInsuranceForm['email'].errors" class="invalid-feedback"></div>
+          <div *ngIf="!getInsuranceForm['email'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks
+            good!</div>
+          <div *ngIf="getInsuranceForm['email'].errors?.['required']" style="color: red;">Email cannot be empty</div>
+          <div *ngIf="getInsuranceForm['email'].errors?.['email']" style="color: red;">Email must be valid</div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" id="password" formControlName="password" required
+            [ngClass]="{'is-invalid':getInsuranceForm['password'].errors,'is-valid':!getInsuranceForm['password'].errors}">
+          <div *ngIf="getInsuranceForm['password'].errors && !getInsuranceForm['password'].errors?.['required']"
+            class="invalid-feedback">Password must have at least 1 upper case, 1 lower case,1 special character, 1 digit
+            and must be of minimum length 8</div>
+          <div *ngIf="!getInsuranceForm['password'].errors" class="valid-feedback" style="color: rgb(9, 199, 34);">Looks
+            good!</div>
+          <div *ngIf="getInsuranceForm['password'].errors?.['required']" style="color: red;">Password cannot be empty
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm_password">Confirm Password:</label>
+          <input type="password" class="form-control" id="confirm_password" formControlName="confirm_password" required
+            [ngClass]="{'is-invalid':getInsuranceForm['confirm_password'].errors,'is-valid':!getInsuranceForm['confirm_password'].errors}">
+          <div *ngIf="getInsuranceForm['confirm_password'].errors?.['passwordMismatch']" class="invalid-feedback">
+            Passwords do not match</div>
+          <div *ngIf="!getInsuranceForm['confirm_password'].errors" class="valid-feedback"
+            style="color: rgb(9, 199, 34);">Looks good!</div>
+        </div>
+
+        <button type="submit" [disabled]=" insuranceRegistrationForm.invalid" class="btn btn-primary"
+          style="width: 100%;">Add Profile</button>
+      </form>
+    </div>
+  </div>
+</div>
